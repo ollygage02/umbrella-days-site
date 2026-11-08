@@ -125,7 +125,7 @@
   .edge-t::after { background: rgba(255,255,255,.12); }
   .edge-b::after { background: rgba(0,0,0,.32); }
   .sleeve {
-    position: absolute; inset: 10%; overflow: hidden;
+    position: absolute; inset: 6%; overflow: hidden;
     box-shadow: 0 0 0 1px rgba(31,42,54,.15);
   }
   /* The cover sits recessed behind the frame's lip. */
@@ -517,11 +517,11 @@
       door.appendChild(e);
     }
   });
-  // Door thickness scales with the drawing: about 3cm on a 33cm cube.
+  // Door thickness scales with the drawing: about 1.7cm on a 33cm cube.
   const kallaxBox = document.querySelector(".kallax");
   const setThickness = () => {
     const w = document.querySelector(".door")?.offsetWidth || 0;
-    kallaxBox.style.setProperty("--t", Math.max(4, Math.round(w * 0.09)) + "px");
+    kallaxBox.style.setProperty("--t", Math.max(3, Math.round(w * 0.05)) + "px");
   };
   setThickness();
   if ("ResizeObserver" in window) new ResizeObserver(setThickness).observe(kallaxBox);
