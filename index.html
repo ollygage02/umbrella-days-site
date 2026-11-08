@@ -79,15 +79,17 @@
   /* Kallax illustration */
   .kallax {
     --gap: clamp(6px, 1.3vw, 12px);
-    width: min(600px, 100%); aspect-ratio: 2 / 1; margin-left: auto;
-    background: var(--kallax);
+    --frame: var(--kallax); --frame-edge: var(--kallax-edge); --inside: var(--cube-inside); --door: var(--kallax);
+    width: 100%; aspect-ratio: 2 / 1;
+    background: var(--frame);
+    transition: background-color .3s ease;
     padding: var(--gap); display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 1fr); gap: var(--gap);
     border-radius: 3px;
-    box-shadow: 0 1px 0 var(--kallax-edge) inset, 0 30px 50px -28px rgba(31,42,54,.45), 0 0 0 1px var(--kallax-edge);
+    box-shadow: 0 1px 0 var(--frame-edge) inset, 0 30px 50px -28px rgba(31,42,54,.45), 0 0 0 1px var(--frame-edge);
     position: relative;
   }
   .cube {
-    position: relative; background: var(--cube-inside); perspective: 900px;
+    position: relative; background: var(--inside); perspective: 900px;
     box-shadow: inset 0 6px 10px -6px rgba(0,0,0,.25);
   }
   .spines {
@@ -104,10 +106,10 @@
   }
   .door {
     position: absolute; inset: 0; border: 0; padding: 0; cursor: pointer;
-    background: var(--kallax);
+    background: var(--door);
     transform-origin: left center; transform-style: preserve-3d;
-    transition: transform 1.3s cubic-bezier(.3,.7,.2,1);
-    box-shadow: 0 0 0 1px var(--kallax-edge), 2px 0 6px rgba(0,0,0,.08);
+    transition: transform 1.3s cubic-bezier(.3,.7,.2,1), background-color .3s ease;
+    box-shadow: 0 0 0 1px rgba(31,42,54,.14), 2px 0 6px rgba(0,0,0,.08);
     border-radius: 1px;
   }
   .door::after { /* knob */
@@ -120,6 +122,24 @@
     box-shadow: 0 0 0 3px #fff, 0 0 0 4px var(--kallax-edge);
   }
   .sleeve svg { display: block; width: 100%; height: 100%; }
+
+  /* Colour pickers under the Kallax drawing */
+  .hero-visual { width: min(600px, 100%); margin-left: auto; }
+  .picker { margin-top: 28px; display: grid; gap: 14px; }
+  .picker-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; }
+  .picker-label { font-weight: 700; font-size: .98rem; min-width: 11.5em; }
+  .picker-label output { font-weight: 400; color: var(--ink-soft); }
+  .swatches { display: flex; flex-wrap: wrap; gap: 10px; }
+  .sw { position: relative; display: block; }
+  .sw input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+  .sw .dot {
+    display: block; width: 30px; height: 30px; border-radius: 50%; background: var(--c);
+    box-shadow: inset 0 0 0 1px rgba(31,42,54,.22);
+    transition: box-shadow .15s ease;
+  }
+  .sw input:checked + .dot { box-shadow: inset 0 0 0 1px rgba(31,42,54,.22), 0 0 0 3px var(--rain), 0 0 0 5px var(--ink); }
+  .sw input:focus-visible + .dot { outline: 3px solid var(--ink); outline-offset: 5px; }
+  .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
   /* Sections */
   section { padding: clamp(56px, 8vw, 104px) 0; }
@@ -193,7 +213,8 @@
 
   @media (max-width: 860px) {
     .hero .wrap, .why .wrap, .waitlist .wrap { grid-template-columns: 1fr; }
-    .kallax { margin: 0 auto; width: 100%; }
+    .hero-visual { margin: 0 auto; width: 100%; }
+    .picker-label { min-width: 0; width: 100%; }
     .steps ol { grid-template-columns: 1fr; }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -223,6 +244,7 @@
         <a class="btn" href="#waitlist">Join the waitlist</a>
         <p class="hero-note">We're gauging interest before our first production run. Sign up and you'll be first to hear when doors are ready to order.</p>
       </div>
+      <div class="hero-visual">
       <div class="kallax" role="img" aria-label="Illustration of an eight-cube Kallax unit with doors on four of the cubes, each door displaying a record sleeve. The other four cubes are open, with records stored on their edges.">
         <!-- Top row -->
         <div class="cube"><div class="spines" style="--shift:0%"></div><button class="door" type="button" tabindex="-1" aria-hidden="true"><span class="sleeve">
@@ -278,6 +300,33 @@
             <text x="12" y="82" font-family="'Bricolage Grotesque', system-ui, sans-serif" font-weight="800" font-size="14" fill="#1F2A36">drizzles</text>
           </svg></span></button></div>
       </div>
+      <div class="picker">
+        <fieldset class="picker-row">
+          <legend class="vh">Your Kallax colour</legend>
+          <span class="picker-label" aria-hidden="true">Your Kallax: <output id="kallax-name">White</output></span>
+          <div class="swatches">
+            <label class="sw" title="White"><input type="radio" name="hero_kallax" value="white" checked><span class="dot" style="--c:#F4F4F0"></span><span class="vh">White</span></label>
+            <label class="sw" title="Black-brown"><input type="radio" name="hero_kallax" value="black_brown"><span class="dot" style="--c:#3A302B"></span><span class="vh">Black-brown</span></label>
+            <label class="sw" title="Oak effect"><input type="radio" name="hero_kallax" value="oak_effect"><span class="dot" style="--c:#C9A77C"></span><span class="vh">Oak effect</span></label>
+            <label class="sw" title="White stained oak"><input type="radio" name="hero_kallax" value="white_stained_oak"><span class="dot" style="--c:#E6DCCB"></span><span class="vh">White stained oak</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="picker-row">
+          <legend class="vh">Door colour</legend>
+          <span class="picker-label" aria-hidden="true">Door colour: <output id="door-name">White</output></span>
+          <div class="swatches">
+            <label class="sw" title="White"><input type="radio" name="hero_door" value="white" checked><span class="dot" style="--c:#F4F4F0"></span><span class="vh">White</span></label>
+            <label class="sw" title="Black-brown"><input type="radio" name="hero_door" value="black_brown"><span class="dot" style="--c:#3A302B"></span><span class="vh">Black-brown</span></label>
+            <label class="sw" title="Oak effect"><input type="radio" name="hero_door" value="oak_effect"><span class="dot" style="--c:#C9A77C"></span><span class="vh">Oak effect</span></label>
+            <label class="sw" title="White stained oak"><input type="radio" name="hero_door" value="white_stained_oak"><span class="dot" style="--c:#E6DCCB"></span><span class="vh">White stained oak</span></label>
+            <label class="sw" title="Blue"><input type="radio" name="hero_door" value="blue"><span class="dot" style="--c:#3E6FB0"></span><span class="vh">Blue</span></label>
+            <label class="sw" title="Orange"><input type="radio" name="hero_door" value="orange"><span class="dot" style="--c:#E8743B"></span><span class="vh">Orange</span></label>
+            <label class="sw" title="Green"><input type="radio" name="hero_door" value="green"><span class="dot" style="--c:#4E8C5A"></span><span class="vh">Green</span></label>
+            <label class="sw" title="Yellow"><input type="radio" name="hero_door" value="yellow"><span class="dot" style="--c:#F2C230"></span><span class="vh">Yellow</span></label>
+          </div>
+        </fieldset>
+      </div>
+      </div>
     </div>
   </div>
 
@@ -299,7 +348,7 @@
         <div><dt>Your best covers on show</dt><dd>Record art deserves better than a row of spines. A wall of doors puts a different sleeve in every cube.</dd></div>
         <div><dt>Doors where you want them</dt><dd>Fit a door to every cube or just a few. Mix covered cubes with open ones, so the records you play most stay within reach.</dd></div>
         <div><dt>Dust stays out</dt><dd>Open cubes collect dust on every sleeve. A closed door keeps the stack behind it clean between plays.</dd></div>
-        <div><dt>Matches your unit</dt><dd>We're planning finishes to match the Kallax colours, so the doors look like they came with the shelf.</dd></div>
+        <div><dt>Matches your unit, or doesn't</dt><dd>Doors come in all four Kallax finishes, so they look like they came with the shelf. Or pick blue, orange, green or yellow if you'd rather they stand out.</dd></div>
       </dl>
     </div>
   </section>
@@ -336,6 +385,20 @@
               <label class="chip"><input type="radio" name="colour" value="oak_effect"><span><i class="swatch" style="background:#C9A77C"></i>Oak effect</span></label>
               <label class="chip"><input type="radio" name="colour" value="white_stained_oak"><span><i class="swatch" style="background:#E6DCCB"></i>White stained oak</span></label>
               <label class="chip"><input type="radio" name="colour" value="other"><span>Other</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Which door colour would you choose? <span class="optional">(optional)</span></legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="door_colour" value="white"><span><i class="swatch" style="background:#F4F4F0"></i>White</span></label>
+              <label class="chip"><input type="radio" name="door_colour" value="black_brown"><span><i class="swatch" style="background:#3A302B"></i>Black-brown</span></label>
+              <label class="chip"><input type="radio" name="door_colour" value="oak_effect"><span><i class="swatch" style="background:#C9A77C"></i>Oak effect</span></label>
+              <label class="chip"><input type="radio" name="door_colour" value="white_stained_oak"><span><i class="swatch" style="background:#E6DCCB"></i>White stained oak</span></label>
+              <label class="chip"><input type="radio" name="door_colour" value="blue"><span><i class="swatch" style="background:#3E6FB0"></i>Blue</span></label>
+              <label class="chip"><input type="radio" name="door_colour" value="orange"><span><i class="swatch" style="background:#E8743B"></i>Orange</span></label>
+              <label class="chip"><input type="radio" name="door_colour" value="green"><span><i class="swatch" style="background:#4E8C5A"></i>Green</span></label>
+              <label class="chip"><input type="radio" name="door_colour" value="yellow"><span><i class="swatch" style="background:#F2C230"></i>Yellow</span></label>
             </div>
           </fieldset>
 
@@ -436,6 +499,47 @@
     else setTimeout(() => autoDoor.classList.add("open"), 700);
   }
 
+  // Colour pickers: recolour the drawing, and keep the form's answers in step.
+  // The form is only filled once someone actually picks a colour, so the
+  // drawing's default of white doesn't count as an answer.
+  const KALLAX = {
+    white:             { label: "White",             frame: "#F7F7F4", edge: "#E2E2DC", inside: "#D9DBD6" },
+    black_brown:       { label: "Black-brown",       frame: "#3A302B", edge: "#2B231F", inside: "#2A2420" },
+    oak_effect:        { label: "Oak effect",        frame: "#C9A77C", edge: "#B38F63", inside: "#A88B67" },
+    white_stained_oak: { label: "White stained oak", frame: "#E6DCCB", edge: "#D3C6B0", inside: "#C6BAA5" },
+  };
+  const DOORS = {
+    white: ["White", "#F7F7F4"], black_brown: ["Black-brown", "#3A302B"],
+    oak_effect: ["Oak effect", "#C9A77C"], white_stained_oak: ["White stained oak", "#E6DCCB"],
+    blue: ["Blue", "#3E6FB0"], orange: ["Orange", "#E8743B"], green: ["Green", "#4E8C5A"], yellow: ["Yellow", "#F2C230"],
+  };
+  const kallaxEl = document.querySelector(".kallax");
+  const check = (name, value) => {
+    const el = document.querySelector(`input[name="${name}"][value="${value}"]`);
+    if (el) el.checked = true;
+  };
+  function setKallax(v) {
+    const k = KALLAX[v]; if (!k) return;
+    kallaxEl.style.setProperty("--frame", k.frame);
+    kallaxEl.style.setProperty("--frame-edge", k.edge);
+    kallaxEl.style.setProperty("--inside", k.inside);
+    document.getElementById("kallax-name").textContent = k.label;
+    check("hero_kallax", v);
+  }
+  function setDoor(v) {
+    const d = DOORS[v]; if (!d) return;
+    kallaxEl.style.setProperty("--door", d[1]);
+    document.getElementById("door-name").textContent = d[0];
+    check("hero_door", v);
+  }
+  document.addEventListener("change", (e) => {
+    const { name, value } = e.target;
+    if (name === "hero_kallax") { setKallax(value); check("colour", value); }
+    if (name === "hero_door")   { setDoor(value);   check("door_colour", value); }
+    if (name === "colour")      setKallax(value);
+    if (name === "door_colour") setDoor(value);
+  });
+
   // Waitlist form
   const form = document.getElementById("waitlist-form");
   const emailInput = document.getElementById("email");
@@ -477,6 +581,7 @@
       email,
       doors: data.get("doors") || null,
       colour: data.get("colour") || null,
+      door_colour: data.get("door_colour") || null,
       country: data.get("country") || null,
       utm_source: clip(params.get("utm_source"), 100),
       utm_medium: clip(params.get("utm_medium"), 100),
