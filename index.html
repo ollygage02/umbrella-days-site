@@ -175,6 +175,13 @@
   .waitlist .wrap { display: grid; grid-template-columns: 1fr 1.25fr; gap: clamp(32px, 6vw, 80px); }
   .waitlist h2 { color: #fff; }
   .waitlist .intro p { color: #B9C4CF; max-width: 36ch; }
+  .waitlist .intro .offer {
+    display: inline-block; margin: 0 0 .5em; padding: .15em .5em .2em;
+    background: var(--yellow); color: var(--ink); border-radius: var(--radius);
+    font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 800; line-height: 1; letter-spacing: -0.03em;
+    transform: rotate(-2deg);
+  }
+  .install-note { margin: 2em 0 0; font-weight: 600; }
   form { display: grid; gap: 26px; }
   fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
   legend, label.field-label { display: block; font-weight: 700; margin-bottom: .55em; font-size: 1rem; }
@@ -241,7 +248,7 @@
       <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 16a13 13 0 0 1 26 0z" fill="#F2C230"/><path d="M16 16v9a3 3 0 0 1-6 0" fill="none" stroke="#1F2A36" stroke-width="2.4" stroke-linecap="round"/></svg>
       Umbrella Days
     </a>
-    <a class="btn btn-small" href="#waitlist">Join the waitlist</a>
+    <a class="btn btn-small" href="#waitlist">Get 15% off</a>
   </div>
 </header>
 
@@ -250,9 +257,9 @@
     <div class="wrap">
       <div>
         <h1>Turn your Kallax into a record wall.</h1>
-        <p class="lede">Hinged doors for IKEA Kallax cubes. Each one frames an LP on the front and keeps the records behind it free of dust. Swap the cover whenever the mood changes.</p>
-        <a class="btn" href="#waitlist">Join the waitlist</a>
-        <p class="hero-note">We're gauging interest before our first production run. Sign up and you'll be first to hear when doors are ready to order.</p>
+        <p class="lede">Hinged doors for Kallax cubes. Show off a record on the front, protect the rest behind it.</p>
+        <a class="btn" href="#waitlist">Join the waitlist for 15% off</a>
+        <p class="hero-note">Waitlist members get 15% off at launch.</p>
       </div>
       <div class="hero-visual">
       <div class="kallax" role="img" aria-label="Illustration of an eight-cube Kallax unit with doors on four of the cubes, each door displaying a record sleeve. The other four cubes are open, with records stored on their edges.">
@@ -346,23 +353,24 @@
 
   <section class="steps" aria-labelledby="how-title">
     <div class="wrap">
-      <h2 id="how-title">How it works</h2>
+      <h2 id="how-title">Fitting takes minutes</h2>
       <ol>
-        <li><h3>Fit the door</h3><p>Each door is made for a standard Kallax cube, so the shelf you already own becomes the display.</p></li>
-        <li><h3>Slide in a sleeve</h3><p>Pop any 12-inch record sleeve into the front frame. It sits flat and square, like it's on a gallery wall.</p></li>
-        <li><h3>Swap it any time</h3><p>Now playing, newest find, or an all-time favourite. Change the cover in seconds.</p></li>
+        <li><h3>Fix the hinges</h3><p>Two hinges per door, four screws, fixed inside the cube.</p></li>
+        <li><h3>Slide in a record</h3><p>Any 12-inch sleeve drops into the front frame.</p></li>
+        <li><h3>Swap it any time</h3><p>Change the cover in seconds.</p></li>
       </ol>
+      <p class="install-note">You'll need a drill. Fits every Kallax cube, from the 1×4 to the 5×5.</p>
     </div>
   </section>
 
   <section class="why" aria-labelledby="why-title">
     <div class="wrap">
-      <h2 id="why-title">Made for people whose records live in a Kallax</h2>
+      <h2 id="why-title">Made for records that live in a Kallax</h2>
       <dl>
-        <div><dt>Your best covers on show</dt><dd>Record art deserves better than a row of spines. A wall of doors puts a different sleeve in every cube.</dd></div>
-        <div><dt>Doors where you want them</dt><dd>Fit a door to every cube or just a few. Mix covered cubes with open ones, so the records you play most stay within reach.</dd></div>
-        <div><dt>Safe from dust, pets, babies and sunlight</dt><dd>Open cubes collect dust, and they're within easy reach of curious cats, dogs and little hands. A closed door keeps the records behind it clean and out of harm's way. Slot in the acrylic front pane and the cover on display is shielded from fading UV light too.</dd></div>
-        <div><dt>Matches your unit, or doesn't</dt><dd>Doors come in every Kallax finish, so they look like they came with the shelf. Or pick blue, orange, green or yellow if you'd rather they stand out.</dd></div>
+        <div><dt>Covers on show</dt><dd>A different sleeve in every cube.</dd></div>
+        <div><dt>Doors where you want them</dt><dd>On one cube or all of them.</dd></div>
+        <div><dt>Safe from dust, pets and babies</dt><dd>Add the acrylic pane to keep UV off the cover too.</dd></div>
+        <div><dt>Every Kallax finish</dt><dd>Plus blue, orange, green and yellow.</dd></div>
       </dl>
     </div>
   </section>
@@ -370,8 +378,9 @@
   <section class="waitlist" id="waitlist" aria-labelledby="waitlist-title">
     <div class="wrap">
       <div class="intro">
-        <h2 id="waitlist-title">Join the waitlist</h2>
-        <p>Tell us a little about your setup. Your answers help us decide on finishes and where to ship first.</p>
+        <p class="offer">15% off</p>
+        <h2 id="waitlist-title">Join the waitlist, save at launch</h2>
+        <p>We'll email your code when doors go on sale. The other questions are optional, and help us decide what to make first.</p>
       </div>
 
       <div>
@@ -448,7 +457,7 @@
           </div>
 
           <div class="form-foot">
-            <button class="btn" type="submit" id="submit-btn">Join the waitlist</button>
+            <button class="btn" type="submit" id="submit-btn">Get 15% off at launch</button>
             <p class="consent">We'll only email you about Umbrella Days. Unsubscribe any time.</p>
           </div>
           <p class="msg" id="form-msg" role="status" aria-live="polite"></p>
@@ -456,7 +465,7 @@
 
         <div class="success" id="success" role="status" aria-live="polite" tabindex="-1">
           <h3>You're on the list.</h3>
-          <p>Thanks for helping shape Umbrella Days. We'll email you when doors are ready to order. In the meantime, follow along on Instagram at <a href="https://www.instagram.com/umbrella.days/" rel="noopener">@umbrella.days</a>.</p>
+          <p>We'll email your 15% off code when doors go on sale. Follow along on Instagram at <a href="https://www.instagram.com/umbrella.days/" rel="noopener">@umbrella.days</a>.</p>
         </div>
       </div>
     </div>
@@ -467,23 +476,27 @@
       <h2 id="faq-title">Questions</h2>
       <details>
         <summary>Will it fit my Kallax?</summary>
-        <p>The doors are designed around the standard Kallax cube, which is the same size in every Kallax unit, from the 1×4 to the 5×5.</p>
+        <p>Yes. Every Kallax cube is the same size, from the 1×4 to the 5×5.</p>
+      </details>
+      <details>
+        <summary>How do I fit it?</summary>
+        <p>Each door fixes inside the cube with two hinges and four screws. You'll need a drill.</p>
       </details>
       <details>
         <summary>When can I buy one?</summary>
-        <p>We're still finalising the design. Join the waitlist and you'll be first to hear when the first batch is ready to order.</p>
+        <p>We're finalising the design. The waitlist hears first.</p>
       </details>
       <details>
         <summary>How much will they cost?</summary>
-        <p>We haven't set a price yet. Everyone on the waitlist will hear it first.</p>
+        <p>Price to be confirmed. Waitlist members get 15% off at launch.</p>
       </details>
       <details>
         <summary>Do you ship outside the UK?</summary>
-        <p>We're starting in the UK. Tell us your country on the form so we know where to plan for next.</p>
+        <p>We're starting in the UK. Tell us your country on the form.</p>
       </details>
       <details>
         <summary>Are you part of IKEA?</summary>
-        <p>No. Umbrella Days is an independent brand making accessories for IKEA furniture.</p>
+        <p>No. Umbrella Days is an independent brand.</p>
       </details>
     </div>
   </section>
