@@ -64,6 +64,12 @@
   .btn:active { transform: translateY(1px); box-shadow: 0 1px 0 var(--yellow-deep); }
   .btn[disabled] { opacity: .6; cursor: progress; }
   .btn-small { padding: .55em 1.05em; font-size: .95rem; }
+  .site-nav { display: flex; align-items: center; gap: clamp(14px, 2.5vw, 24px); }
+  .site-nav .text-link { font-weight: 600; text-decoration: none; }
+  .site-nav .text-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .foot-links { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+  .brand, .site-nav a { white-space: nowrap; }
+  @media (max-width: 520px) { .site-nav .text-link.hide-sm { display: none; } .site-nav { gap: 14px; } .brand { font-size: 1.08rem; } }
 
   /* Hero */
   .hero { padding: clamp(24px, 6vw, 72px) 0 clamp(56px, 9vw, 112px); }
@@ -248,7 +254,11 @@
       <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 16a13 13 0 0 1 26 0z" fill="#F2C230"/><path d="M16 16v9a3 3 0 0 1-6 0" fill="none" stroke="#1F2A36" stroke-width="2.4" stroke-linecap="round"/></svg>
       Umbrella Days
     </a>
-    <a class="btn btn-small" href="#waitlist">Get 15% off</a>
+    <nav class="site-nav" aria-label="Main">
+      <a class="text-link" href="/about/">About</a>
+      <a class="text-link hide-sm" href="/contact/">Contact</a>
+      <a class="btn btn-small" href="#waitlist">Get 15% off</a>
+    </nav>
   </div>
 </header>
 
@@ -458,7 +468,7 @@
 
           <div class="form-foot">
             <button class="btn" type="submit" id="submit-btn">Get 15% off at launch</button>
-            <p class="consent">We'll only email you about Umbrella Days. Unsubscribe any time.</p>
+            <p class="consent">We'll only email you about Umbrella Days. Unsubscribe any time. <a href="/privacy/">Privacy policy</a></p>
           </div>
           <p class="msg" id="form-msg" role="status" aria-live="polite"></p>
         </form>
@@ -506,9 +516,14 @@
   <div class="wrap">
     <div class="row">
       <strong>Umbrella Days</strong>
-      <a href="https://www.instagram.com/umbrella.days/" rel="noopener">Instagram @umbrella.days</a>
+      <nav class="foot-links" aria-label="Footer">
+        <a href="/about/">About</a>
+        <a href="/contact/">Contact</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="https://www.instagram.com/umbrella.days/" rel="noopener">Instagram</a>
+      </nav>
     </div>
-    <p>Your details are stored with our database provider in London and used only to tell you about Umbrella Days. To be removed from the list, email <a href="mailto:hello@umbrelladays.com">hello@umbrelladays.com</a>.</p>
+    <p>Your details are stored with our database provider in London and used only to tell you about Umbrella Days. See our <a href="/privacy/">privacy policy</a>.</p>
     <p>Umbrella Days is not affiliated with or endorsed by IKEA. IKEA and KALLAX are trademarks of Inter IKEA Systems B.V.</p>
   </div>
 </footer>

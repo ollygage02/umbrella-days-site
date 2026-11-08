@@ -1,0 +1,78 @@
+/* Shared styles for the Umbrella Days sub-pages (About, Contact, Privacy).
+   Tokens match the landing page. */
+:root {
+  --rain: #DCE3E8;
+  --rain-deep: #C9D3DB;
+  --ink: #1F2A36;
+  --ink-soft: #4A5866;
+  --kallax: #F7F7F4;
+  --yellow: #F2C230;
+  --yellow-deep: #DDAE1C;
+  --teal: #2F6F73;
+  --radius: 6px;
+  --gutter: clamp(16px, 4vw, 48px);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--rain);
+  color: var(--ink);
+  font-family: "Bricolage Grotesque", system-ui, sans-serif;
+  font-optical-sizing: auto;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 var(--gutter); }
+
+header.site { padding: 22px 0; }
+header.site .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.2rem; text-decoration: none; letter-spacing: -0.01em; }
+.brand svg { width: 30px; height: 30px; }
+.site-nav { display: flex; align-items: center; gap: clamp(14px, 2.5vw, 24px); }
+.site-nav .text-link { font-weight: 600; text-decoration: none; }
+.site-nav .text-link:hover, .site-nav .text-link[aria-current="page"] { text-decoration: underline; text-underline-offset: 4px; }
+.btn {
+  display: inline-block; border: 0; cursor: pointer;
+  background: var(--yellow); color: var(--ink);
+  font: inherit; font-weight: 700; font-size: 1rem;
+  padding: 0.8em 1.3em; border-radius: 999px; text-decoration: none;
+  box-shadow: 0 2px 0 var(--yellow-deep);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.btn:hover { transform: translateY(-1px); box-shadow: 0 3px 0 var(--yellow-deep); }
+.btn-small { padding: .55em 1.05em; font-size: .95rem; }
+
+main { padding: clamp(32px, 7vw, 88px) 0 clamp(56px, 9vw, 112px); }
+.page { max-width: 680px; }
+h1 { font-size: clamp(2.4rem, 5.4vw, 4rem); line-height: 1; letter-spacing: -0.035em; font-weight: 800; margin: 0 0 .5em; }
+h2 { font-size: 1.45rem; letter-spacing: -0.015em; line-height: 1.2; margin: 2em 0 .5em; }
+p, ul { margin: 0 0 1em; }
+ul { padding-left: 1.2em; }
+li { margin-bottom: .4em; }
+.lede { font-size: clamp(1.15rem, 1.8vw, 1.35rem); color: var(--ink-soft); }
+.muted { color: var(--ink-soft); font-size: .95rem; }
+
+.cta-band { background: var(--ink); color: var(--kallax); border-radius: 10px; padding: clamp(24px, 4vw, 40px); margin-top: 2.5em; }
+.cta-band h2 { color: #fff; margin-top: 0; }
+.cta-band p { color: #B9C4CF; }
+
+.contact-list { list-style: none; padding: 0; margin: 2em 0 0; display: grid; gap: 1.4em; }
+.contact-list strong { display: block; font-size: 1.15rem; }
+.contact-list a { font-size: 1.3rem; font-weight: 700; text-underline-offset: 4px; }
+
+footer { padding: 40px 0 56px; font-size: .92rem; color: var(--ink-soft); border-top: 2px solid var(--rain-deep); }
+footer .wrap { display: grid; gap: 14px; }
+footer .row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+.foot-links { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+footer p { margin: 0; max-width: 70ch; }
+
+.brand, .site-nav a { white-space: nowrap; }
+@media (max-width: 520px) {
+  .site-nav .text-link.hide-sm { display: none; }
+  .site-nav { gap: 14px; }
+  .brand { font-size: 1.08rem; }
+}
+@media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
