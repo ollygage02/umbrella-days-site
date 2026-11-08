@@ -80,16 +80,16 @@
   .kallax {
     --gap: clamp(6px, 1.3vw, 12px);
     --frame: var(--kallax); --frame-edge: var(--kallax-edge); --inside: var(--cube-inside); --door: var(--kallax);
-    width: 100%; aspect-ratio: 2 / 1;
+    width: 100%;
     background: var(--frame);
     transition: background-color .3s ease;
-    padding: var(--gap); display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 1fr); gap: var(--gap);
+    padding: var(--gap); display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap);
     border-radius: 3px;
     box-shadow: 0 1px 0 var(--frame-edge) inset, 0 30px 50px -28px rgba(31,42,54,.45), 0 0 0 1px var(--frame-edge);
     position: relative;
   }
   .cube {
-    position: relative; background: var(--inside); perspective: 900px;
+    position: relative; aspect-ratio: 1; background: var(--inside); perspective: 900px;
     box-shadow: inset 0 6px 10px -6px rgba(0,0,0,.25);
   }
   .spines {
@@ -112,13 +112,9 @@
     box-shadow: 0 0 0 1px rgba(31,42,54,.14), 2px 0 6px rgba(0,0,0,.08);
     border-radius: 1px;
   }
-  .door::after { /* knob */
-    content: ""; position: absolute; right: 5%; top: 50%; width: 3%; height: 12%;
-    transform: translateY(-50%); background: var(--rain-deep); border-radius: 4px;
-  }
   .door.open { transform: rotateY(-68deg); }
   .sleeve {
-    position: absolute; inset: 9% 13% 9% 9%; overflow: hidden;
+    position: absolute; inset: 10%; overflow: hidden;
     box-shadow: 0 0 0 3px #fff, 0 0 0 4px var(--kallax-edge);
   }
   .sleeve svg { display: block; width: 100%; height: 100%; }
@@ -307,6 +303,8 @@
             <label class="sw" title="Black-brown"><input type="radio" name="hero_kallax" value="black_brown"><span class="dot" style="--c:#3A302B"></span><span class="vh">Black-brown</span></label>
             <label class="sw" title="Oak effect"><input type="radio" name="hero_kallax" value="oak_effect"><span class="dot" style="--c:#C9A77C"></span><span class="vh">Oak effect</span></label>
             <label class="sw" title="White stained oak"><input type="radio" name="hero_kallax" value="white_stained_oak"><span class="dot" style="--c:#E6DCCB"></span><span class="vh">White stained oak</span></label>
+            <label class="sw" title="Grey wood effect"><input type="radio" name="hero_kallax" value="grey_wood_effect"><span class="dot" style="--c:#8E8B85"></span><span class="vh">Grey wood effect</span></label>
+            <label class="sw" title="High gloss white"><input type="radio" name="hero_kallax" value="high_gloss_white"><span class="dot" style="--c:linear-gradient(135deg,#fff 45%,#DDE2E7)"></span><span class="vh">High gloss white</span></label>
           </div>
         </fieldset>
         <fieldset class="picker-row">
@@ -317,6 +315,8 @@
             <label class="sw" title="Black-brown"><input type="radio" name="hero_door" value="black_brown"><span class="dot" style="--c:#3A302B"></span><span class="vh">Black-brown</span></label>
             <label class="sw" title="Oak effect"><input type="radio" name="hero_door" value="oak_effect"><span class="dot" style="--c:#C9A77C"></span><span class="vh">Oak effect</span></label>
             <label class="sw" title="White stained oak"><input type="radio" name="hero_door" value="white_stained_oak"><span class="dot" style="--c:#E6DCCB"></span><span class="vh">White stained oak</span></label>
+            <label class="sw" title="Grey wood effect"><input type="radio" name="hero_door" value="grey_wood_effect"><span class="dot" style="--c:#8E8B85"></span><span class="vh">Grey wood effect</span></label>
+            <label class="sw" title="High gloss white"><input type="radio" name="hero_door" value="high_gloss_white"><span class="dot" style="--c:linear-gradient(135deg,#fff 45%,#DDE2E7)"></span><span class="vh">High gloss white</span></label>
             <label class="sw" title="Blue"><input type="radio" name="hero_door" value="blue"><span class="dot" style="--c:#3E6FB0"></span><span class="vh">Blue</span></label>
             <label class="sw" title="Orange"><input type="radio" name="hero_door" value="orange"><span class="dot" style="--c:#E8743B"></span><span class="vh">Orange</span></label>
             <label class="sw" title="Green"><input type="radio" name="hero_door" value="green"><span class="dot" style="--c:#4E8C5A"></span><span class="vh">Green</span></label>
@@ -346,7 +346,7 @@
         <div><dt>Your best covers on show</dt><dd>Record art deserves better than a row of spines. A wall of doors puts a different sleeve in every cube.</dd></div>
         <div><dt>Doors where you want them</dt><dd>Fit a door to every cube or just a few. Mix covered cubes with open ones, so the records you play most stay within reach.</dd></div>
         <div><dt>Dust stays out</dt><dd>Open cubes collect dust on every sleeve. A closed door keeps the stack behind it clean between plays.</dd></div>
-        <div><dt>Matches your unit, or doesn't</dt><dd>Doors come in all four Kallax finishes, so they look like they came with the shelf. Or pick blue, orange, green or yellow if you'd rather they stand out.</dd></div>
+        <div><dt>Matches your unit, or doesn't</dt><dd>Doors come in every Kallax finish, so they look like they came with the shelf. Or pick blue, orange, green or yellow if you'd rather they stand out.</dd></div>
       </dl>
     </div>
   </section>
@@ -382,6 +382,8 @@
               <label class="chip"><input type="radio" name="colour" value="black_brown"><span><i class="swatch" style="background:#3A302B"></i>Black-brown</span></label>
               <label class="chip"><input type="radio" name="colour" value="oak_effect"><span><i class="swatch" style="background:#C9A77C"></i>Oak effect</span></label>
               <label class="chip"><input type="radio" name="colour" value="white_stained_oak"><span><i class="swatch" style="background:#E6DCCB"></i>White stained oak</span></label>
+              <label class="chip"><input type="radio" name="colour" value="grey_wood_effect"><span><i class="swatch" style="background:#8E8B85"></i>Grey wood effect</span></label>
+              <label class="chip"><input type="radio" name="colour" value="high_gloss_white"><span><i class="swatch" style="background:linear-gradient(135deg,#fff 45%,#DDE2E7)"></i>High gloss white</span></label>
               <label class="chip"><input type="radio" name="colour" value="other"><span>Other</span></label>
             </div>
           </fieldset>
@@ -393,6 +395,8 @@
               <label class="chip"><input type="radio" name="door_colour" value="black_brown"><span><i class="swatch" style="background:#3A302B"></i>Black-brown</span></label>
               <label class="chip"><input type="radio" name="door_colour" value="oak_effect"><span><i class="swatch" style="background:#C9A77C"></i>Oak effect</span></label>
               <label class="chip"><input type="radio" name="door_colour" value="white_stained_oak"><span><i class="swatch" style="background:#E6DCCB"></i>White stained oak</span></label>
+              <label class="chip"><input type="radio" name="door_colour" value="grey_wood_effect"><span><i class="swatch" style="background:#8E8B85"></i>Grey wood effect</span></label>
+              <label class="chip"><input type="radio" name="door_colour" value="high_gloss_white"><span><i class="swatch" style="background:linear-gradient(135deg,#fff 45%,#DDE2E7)"></i>High gloss white</span></label>
               <label class="chip"><input type="radio" name="door_colour" value="blue"><span><i class="swatch" style="background:#3E6FB0"></i>Blue</span></label>
               <label class="chip"><input type="radio" name="door_colour" value="orange"><span><i class="swatch" style="background:#E8743B"></i>Orange</span></label>
               <label class="chip"><input type="radio" name="door_colour" value="green"><span><i class="swatch" style="background:#4E8C5A"></i>Green</span></label>
@@ -505,10 +509,13 @@
     black_brown:       { label: "Black-brown",       frame: "#3A302B", edge: "#2B231F", inside: "#2A2420" },
     oak_effect:        { label: "Oak effect",        frame: "#C9A77C", edge: "#B38F63", inside: "#A88B67" },
     white_stained_oak: { label: "White stained oak", frame: "#E6DCCB", edge: "#D3C6B0", inside: "#C6BAA5" },
+    grey_wood_effect:  { label: "Grey wood effect",  frame: "#8E8B85", edge: "#7A7771", inside: "#6F6C67" },
+    high_gloss_white:  { label: "High gloss white",  frame: "linear-gradient(160deg,#FFFFFF 40%,#E9EDF0)", edge: "#E1E5E9", inside: "#DCDFE2" },
   };
   const DOORS = {
     white: ["White", "#F7F7F4"], black_brown: ["Black-brown", "#3A302B"],
     oak_effect: ["Oak effect", "#C9A77C"], white_stained_oak: ["White stained oak", "#E6DCCB"],
+    grey_wood_effect: ["Grey wood effect", "#8E8B85"], high_gloss_white: ["High gloss white", "linear-gradient(160deg,#FFFFFF 40%,#E9EDF0)"],
     blue: ["Blue", "#3E6FB0"], orange: ["Orange", "#E8743B"], green: ["Green", "#4E8C5A"], yellow: ["Yellow", "#F2C230"],
   };
   const kallaxEl = document.querySelector(".kallax");
