@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Umbrella Days — Record display doors for IKEA Kallax</title>
+<meta name="description" content="Hinged doors for IKEA Kallax cubes that frame a vinyl record on the front and keep the records behind them dust-free. Join the waitlist.">
+<meta property="og:title" content="Umbrella Days — Turn your Kallax into a record wall">
+<meta property="og:description" content="Hinged doors for Kallax cubes that frame an LP and keep dust off your records. Join the waitlist.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://umbrelladays.com/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M3 16a13 13 0 0 1 26 0z' fill='%23F2C230'/%3E%3Cpath d='M16 16v9a3 3 0 0 1-6 0' fill='none' stroke='%231F2A36' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rain: #DCE3E8;
+    --rain-deep: #C9D3DB;
+    --ink: #1F2A36;
+    --ink-soft: #4A5866;
+    --kallax: #F7F7F4;
+    --kallax-edge: #E2E2DC;
+    --cube-inside: #D9DBD6;
+    --yellow: #F2C230;
+    --yellow-deep: #DDAE1C;
+    --teal: #2F6F73;
+    --pink: #E48AA6;
+    --vinyl: #262626;
+    --error: #A3261B;
+    --radius: 6px;
+    --gutter: clamp(16px, 4vw, 48px);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--rain);
+    color: var(--ink);
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-optical-sizing: auto;
+    font-size: 1.0625rem;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 var(--gutter); }
+
+  /* Header */
+  header.site { padding: 22px 0; }
+  header.site .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.2rem; text-decoration: none; letter-spacing: -0.01em; }
+  .brand svg { width: 30px; height: 30px; }
+  .btn {
+    display: inline-block; border: 0; cursor: pointer;
+    background: var(--yellow); color: var(--ink);
+    font: inherit; font-weight: 700; font-size: 1rem;
+    padding: 0.8em 1.3em; border-radius: 999px; text-decoration: none;
+    box-shadow: 0 2px 0 var(--yellow-deep);
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .btn:hover { transform: translateY(-1px); box-shadow: 0 3px 0 var(--yellow-deep); }
+  .btn:active { transform: translateY(1px); box-shadow: 0 1px 0 var(--yellow-deep); }
+  .btn[disabled] { opacity: .6; cursor: progress; }
+  .btn-small { padding: .55em 1.05em; font-size: .95rem; }
+
+  /* Hero */
+  .hero { padding: clamp(24px, 6vw, 72px) 0 clamp(56px, 9vw, 112px); }
+  .hero .wrap { display: grid; grid-template-columns: 1fr 1.25fr; gap: clamp(32px, 5vw, 64px); align-items: center; }
+  h1 {
+    font-size: clamp(2.6rem, 5.6vw, 4.4rem);
+    line-height: .98; letter-spacing: -0.035em; font-weight: 800;
+    margin: 0 0 .4em; max-width: 11ch;
+  }
+  .lede { font-size: clamp(1.1rem, 1.6vw, 1.3rem); color: var(--ink-soft); max-width: 34ch; margin: 0 0 1.6em; }
+  .hero-note { font-size: .95rem; color: var(--ink-soft); margin: 1em 0 0; max-width: 40ch; }
+
+  /* Kallax illustration */
+  .kallax {
+    --gap: clamp(6px, 1.3vw, 12px);
+    width: min(600px, 100%); aspect-ratio: 2 / 1; margin-left: auto;
+    background: var(--kallax);
+    padding: var(--gap); display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 1fr); gap: var(--gap);
+    border-radius: 3px;
+    box-shadow: 0 1px 0 var(--kallax-edge) inset, 0 30px 50px -28px rgba(31,42,54,.45), 0 0 0 1px var(--kallax-edge);
+    position: relative;
+  }
+  .cube {
+    position: relative; background: var(--cube-inside); perspective: 900px;
+    box-shadow: inset 0 6px 10px -6px rgba(0,0,0,.25);
+  }
+  .spines {
+    position: absolute; inset: 10% 6% 0 6%;
+    background:
+      linear-gradient(90deg,
+        #1F2A36 0 7%, #E48AA6 7% 11%, #F7F7F4 11% 16%, #2F6F73 16% 24%, #262626 24% 28%,
+        #F2C230 28% 33%, #8FA3B3 33% 41%, #262626 41% 44%, #C2563F 44% 50%, #F7F7F4 50% 53%,
+        #1F2A36 53% 61%, #E48AA6 61% 65%, #2F6F73 65% 70%, #262626 70% 77%, #F2C230 77% 80%,
+        #8FA3B3 80% 87%, #F7F7F4 87% 90%, #1F2A36 90% 100%);
+    background-size: 170% 100%;
+    background-position: var(--shift, 0%) 0;
+    opacity: .92;
+  }
+  .door {
+    position: absolute; inset: 0; border: 0; padding: 0; cursor: pointer;
+    background: var(--kallax);
+    transform-origin: left center; transform-style: preserve-3d;
+    transition: transform 1.3s cubic-bezier(.3,.7,.2,1);
+    box-shadow: 0 0 0 1px var(--kallax-edge), 2px 0 6px rgba(0,0,0,.08);
+    border-radius: 1px;
+  }
+  .door::after { /* knob */
+    content: ""; position: absolute; right: 5%; top: 50%; width: 3%; height: 12%;
+    transform: translateY(-50%); background: var(--rain-deep); border-radius: 4px;
+  }
+  .door.open { transform: rotateY(-68deg); }
+  .sleeve {
+    position: absolute; inset: 9% 13% 9% 9%; overflow: hidden;
+    box-shadow: 0 0 0 3px #fff, 0 0 0 4px var(--kallax-edge);
+  }
+  .sleeve svg { display: block; width: 100%; height: 100%; }
+
+  /* Sections */
+  section { padding: clamp(56px, 8vw, 104px) 0; }
+  h2 { font-size: clamp(1.9rem, 3.6vw, 2.8rem); line-height: 1.05; letter-spacing: -0.025em; font-weight: 800; margin: 0 0 .6em; max-width: 20ch; }
+  h3 { font-size: 1.25rem; letter-spacing: -0.01em; margin: 0 0 .35em; font-weight: 700; }
+  p { margin: 0 0 1em; }
+
+  .steps { background: var(--kallax); }
+  .steps ol { list-style: none; padding: 0; margin: 2.2em 0 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(24px, 4vw, 56px); counter-reset: step; }
+  .steps li { counter-increment: step; border-top: 3px solid var(--ink); padding-top: 1em; }
+  .steps li::before { content: counter(step); display: block; font-size: 3rem; font-weight: 800; line-height: 1; margin-bottom: .3em; color: var(--teal); }
+  .steps li p { color: var(--ink-soft); max-width: 30ch; margin: 0; }
+
+  .why .wrap { display: grid; grid-template-columns: 1fr 1.4fr; gap: clamp(32px, 6vw, 80px); align-items: start; }
+  .why dl { margin: 0; display: grid; gap: 1.6em; }
+  .why dt { font-weight: 700; font-size: 1.25rem; letter-spacing: -0.01em; }
+  .why dd { margin: .2em 0 0; color: var(--ink-soft); max-width: 46ch; }
+
+  /* Waitlist */
+  .waitlist { background: var(--ink); color: var(--kallax); }
+  .waitlist .wrap { display: grid; grid-template-columns: 1fr 1.25fr; gap: clamp(32px, 6vw, 80px); }
+  .waitlist h2 { color: #fff; }
+  .waitlist .intro p { color: #B9C4CF; max-width: 36ch; }
+  form { display: grid; gap: 26px; }
+  fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+  legend, label.field-label { display: block; font-weight: 700; margin-bottom: .55em; font-size: 1rem; }
+  .optional { font-weight: 400; color: #8FA3B3; }
+  input[type=email], select {
+    width: 100%; font: inherit; font-size: 1.05rem; color: var(--ink);
+    background: var(--kallax); border: 2px solid transparent; border-radius: var(--radius);
+    padding: .8em .9em;
+  }
+  input[type=email]:focus, select:focus { outline: none; border-color: var(--yellow); }
+  input[type=email][aria-invalid=true] { border-color: #F08A7E; }
+  select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%), linear-gradient(135deg, var(--ink) 50%, transparent 50%); background-position: calc(100% - 22px) 55%, calc(100% - 16px) 55%; background-size: 6px 6px; background-repeat: no-repeat; padding-right: 2.6em; }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip { position: relative; }
+  .chip input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .chip span {
+    display: inline-flex; align-items: center; gap: .5em;
+    padding: .5em 1em; border-radius: 999px; border: 2px solid #4A5866;
+    font-size: .98rem; transition: background .15s, border-color .15s, color .15s;
+  }
+  .chip input:checked + span { background: var(--yellow); border-color: var(--yellow); color: var(--ink); font-weight: 700; }
+  .chip input:focus-visible + span { outline: 3px solid var(--yellow); outline-offset: 2px; }
+  .swatch { width: 14px; height: 14px; border-radius: 50%; box-shadow: 0 0 0 1px rgba(255,255,255,.4); }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .form-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; }
+  .consent { font-size: .9rem; color: #8FA3B3; margin: 0; max-width: 40ch; }
+  .msg { margin: 0; font-weight: 600; min-height: 1.5em; }
+  .msg.error { color: #F7A89E; }
+  .success { display: none; }
+  .success.show { display: block; }
+  .success h3 { font-size: 1.8rem; color: var(--yellow); margin-bottom: .4em; letter-spacing: -0.02em; }
+  .success p { color: #B9C4CF; max-width: 40ch; }
+
+  /* FAQ */
+  .faq .wrap { max-width: 820px; }
+  details { border-top: 2px solid var(--rain-deep); padding: 1.1em 0; }
+  details:last-of-type { border-bottom: 2px solid var(--rain-deep); }
+  summary { cursor: pointer; font-weight: 700; font-size: 1.15rem; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; font-size: 1.5rem; line-height: 1; transition: transform .2s; }
+  details[open] summary::after { transform: rotate(45deg); }
+  details p { color: var(--ink-soft); margin: .7em 0 0; max-width: 60ch; }
+
+  footer { padding: 48px 0 56px; font-size: .92rem; color: var(--ink-soft); }
+  footer .wrap { display: grid; gap: 14px; }
+  footer .row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+  footer p { margin: 0; max-width: 70ch; }
+
+  @media (max-width: 860px) {
+    .hero .wrap, .why .wrap, .waitlist .wrap { grid-template-columns: 1fr; }
+    .kallax { margin: 0 auto; width: 100%; }
+    .steps ol { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .door, .btn, .chip span, summary::after { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Umbrella Days home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 16a13 13 0 0 1 26 0z" fill="#F2C230"/><path d="M16 16v9a3 3 0 0 1-6 0" fill="none" stroke="#1F2A36" stroke-width="2.4" stroke-linecap="round"/></svg>
+      Umbrella Days
+    </a>
+    <a class="btn btn-small" href="#waitlist">Join the waitlist</a>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <h1>Turn your Kallax into a record wall.</h1>
+        <p class="lede">Hinged doors for IKEA Kallax cubes. Each one frames an LP on the front and keeps the records behind it free of dust. Swap the cover whenever the mood changes.</p>
+        <a class="btn" href="#waitlist">Join the waitlist</a>
+        <p class="hero-note">We're gauging interest before our first production run. Sign up and you'll be first to hear when doors are ready to order.</p>
+      </div>
+      <div class="kallax" role="img" aria-label="Illustration of an eight-cube Kallax unit with doors on four of the cubes, each door displaying a record sleeve. The other four cubes are open, with records stored on their edges.">
+        <!-- Top row -->
+        <div class="cube"><div class="spines" style="--shift:0%"></div><button class="door" type="button" tabindex="-1" aria-hidden="true"><span class="sleeve">
+          <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+            <rect width="100" height="100" fill="#1F2A36"/>
+            <rect x="0" y="62" width="64" height="38" fill="#2F6F73"/>
+            <rect x="64" y="62" width="36" height="38" fill="#F2C230"/>
+            <circle cx="82" cy="81" r="9" fill="#1F2A36"/>
+            <text x="8" y="31" font-family="Georgia, serif" font-style="italic" font-size="21" fill="#F7F7F4">Petrichor</text>
+            <text x="8" y="44" font-family="system-ui, sans-serif" font-size="6.5" fill="#8FA3B3">Live at the Exchange</text>
+          </svg></span></button></div>
+        <div class="cube"><div class="spines" style="--shift:35%"></div></div>
+        <div class="cube"><div class="spines" style="--shift:70%"></div><button class="door" type="button" tabindex="-1" aria-hidden="true" data-auto-open><span class="sleeve">
+          <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+            <rect width="100" height="100" fill="#F6E7C8"/>
+            <circle cx="50" cy="104" r="52" fill="#E8743B"/>
+            <circle cx="50" cy="104" r="40" fill="#E48AA6"/>
+            <circle cx="50" cy="104" r="28" fill="#F2C230"/>
+            <circle cx="50" cy="104" r="16" fill="#2F6F73"/>
+            <text x="50" y="25" text-anchor="middle" font-family="'Bricolage Grotesque', system-ui, sans-serif" font-weight="800" font-size="13" fill="#1F2A36">Slow Weather</text>
+            <text x="50" y="35" text-anchor="middle" font-family="'Bricolage Grotesque', system-ui, sans-serif" font-size="6" fill="#4A5866">songs for staying in</text>
+          </svg></span></button></div>
+        <div class="cube"><div class="spines" style="--shift:100%"></div></div>
+        <!-- Bottom row -->
+        <div class="cube"><div class="spines" style="--shift:55%"></div></div>
+        <div class="cube"><div class="spines" style="--shift:15%"></div><button class="door" type="button" tabindex="-1" aria-hidden="true"><span class="sleeve">
+          <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+            <rect width="100" height="100" fill="#F7F7F4"/>
+            <g fill="none" stroke="#1F2A36" stroke-width="1.3" transform="rotate(-14 56 42)">
+              <ellipse cx="56" cy="42" rx="11" ry="8"/>
+              <ellipse cx="56" cy="42" rx="22" ry="16"/>
+              <ellipse cx="56" cy="42" rx="33" ry="24"/>
+              <ellipse cx="56" cy="42" rx="44" ry="32"/>
+              <ellipse cx="56" cy="42" rx="56" ry="41"/>
+            </g>
+            <text x="56" y="47" text-anchor="middle" font-family="'Bricolage Grotesque', system-ui, sans-serif" font-weight="800" font-size="14" fill="#C2563F">L</text>
+            <rect x="0" y="80" width="100" height="20" fill="#F7F7F4"/>
+            <text x="8" y="89" font-family="'Bricolage Grotesque', system-ui, sans-serif" font-weight="800" font-size="9" fill="#1F2A36">Low Pressure</text>
+            <text x="8" y="96" font-family="system-ui, sans-serif" font-size="5.5" fill="#4A5866">Isobar EP</text>
+          </svg></span></button></div>
+        <div class="cube"><div class="spines" style="--shift:85%"></div></div>
+        <div class="cube"><div class="spines" style="--shift:45%"></div><button class="door" type="button" tabindex="-1" aria-hidden="true"><span class="sleeve">
+          <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <pattern id="rain" width="10" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(18)">
+                <line x1="5" y1="1" x2="5" y2="7" stroke="#9FD0CF" stroke-width="1.4" stroke-linecap="round"/>
+              </pattern>
+            </defs>
+            <rect width="100" height="100" fill="#2F6F73"/>
+            <rect width="100" height="100" fill="url(#rain)"/>
+            <rect x="8" y="50" width="70" height="38" fill="#E48AA6"/>
+            <text x="12" y="66" font-family="'Bricolage Grotesque', system-ui, sans-serif" font-weight="800" font-size="14" fill="#1F2A36">the</text>
+            <text x="12" y="82" font-family="'Bricolage Grotesque', system-ui, sans-serif" font-weight="800" font-size="14" fill="#1F2A36">drizzles</text>
+          </svg></span></button></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="steps" aria-labelledby="how-title">
+    <div class="wrap">
+      <h2 id="how-title">How it works</h2>
+      <ol>
+        <li><h3>Fit the door</h3><p>Each door is made for a standard Kallax cube, so the shelf you already own becomes the display.</p></li>
+        <li><h3>Slide in a sleeve</h3><p>Pop any 12-inch record sleeve into the front frame. It sits flat and square, like it's on a gallery wall.</p></li>
+        <li><h3>Swap it any time</h3><p>Now playing, newest find, or an all-time favourite. Change the cover in seconds.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="why" aria-labelledby="why-title">
+    <div class="wrap">
+      <h2 id="why-title">Made for people whose records live in a Kallax</h2>
+      <dl>
+        <div><dt>Your best covers on show</dt><dd>Record art deserves better than a row of spines. A wall of doors puts a different sleeve in every cube.</dd></div>
+        <div><dt>Doors where you want them</dt><dd>Fit a door to every cube or just a few. Mix covered cubes with open ones, so the records you play most stay within reach.</dd></div>
+        <div><dt>Dust stays out</dt><dd>Open cubes collect dust on every sleeve. A closed door keeps the stack behind it clean between plays.</dd></div>
+        <div><dt>Matches your unit</dt><dd>We're planning finishes to match the Kallax colours, so the doors look like they came with the shelf.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="waitlist" id="waitlist" aria-labelledby="waitlist-title">
+    <div class="wrap">
+      <div class="intro">
+        <h2 id="waitlist-title">Join the waitlist</h2>
+        <p>Tell us a little about your setup. Your answers help us decide on finishes and where to ship first.</p>
+      </div>
+
+      <div>
+        <form id="waitlist-form" novalidate>
+          <div>
+            <label class="field-label" for="email">Email address</label>
+            <input type="email" id="email" name="email" autocomplete="email" required maxlength="254" placeholder="you@example.com">
+          </div>
+
+          <fieldset>
+            <legend>How many cubes would you fit with a door? <span class="optional">(optional)</span></legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="doors" value="1"><span>1</span></label>
+              <label class="chip"><input type="radio" name="doors" value="2-3"><span>2 to 3</span></label>
+              <label class="chip"><input type="radio" name="doors" value="4-6"><span>4 to 6</span></label>
+              <label class="chip"><input type="radio" name="doors" value="7+"><span>7 or more</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>What colour is your Kallax? <span class="optional">(optional)</span></legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="colour" value="white"><span><i class="swatch" style="background:#F4F4F0"></i>White</span></label>
+              <label class="chip"><input type="radio" name="colour" value="black_brown"><span><i class="swatch" style="background:#3A302B"></i>Black-brown</span></label>
+              <label class="chip"><input type="radio" name="colour" value="oak_effect"><span><i class="swatch" style="background:#C9A77C"></i>Oak effect</span></label>
+              <label class="chip"><input type="radio" name="colour" value="white_stained_oak"><span><i class="swatch" style="background:#E6DCCB"></i>White stained oak</span></label>
+              <label class="chip"><input type="radio" name="colour" value="other"><span>Other</span></label>
+            </div>
+          </fieldset>
+
+          <div>
+            <label class="field-label" for="country">Country <span class="optional">(optional)</span></label>
+            <select id="country" name="country">
+              <option value="">Choose your country</option>
+              <option>United Kingdom</option>
+              <option>Ireland</option>
+              <option>Germany</option>
+              <option>France</option>
+              <option>Netherlands</option>
+              <option>Belgium</option>
+              <option>Spain</option>
+              <option>Italy</option>
+              <option>Sweden</option>
+              <option>Denmark</option>
+              <option>Norway</option>
+              <option>United States</option>
+              <option>Canada</option>
+              <option>Australia</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="hp" aria-hidden="true">
+            <label for="website">Leave this empty</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+          </div>
+
+          <div class="form-foot">
+            <button class="btn" type="submit" id="submit-btn">Join the waitlist</button>
+            <p class="consent">We'll only email you about Umbrella Days. Unsubscribe any time.</p>
+          </div>
+          <p class="msg" id="form-msg" role="status" aria-live="polite"></p>
+        </form>
+
+        <div class="success" id="success" role="status" aria-live="polite" tabindex="-1">
+          <h3>You're on the list.</h3>
+          <p>Thanks for helping shape Umbrella Days. We'll email you when doors are ready to order. In the meantime, follow along on Instagram at <a href="https://www.instagram.com/umbrella.days/" rel="noopener">@umbrella.days</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" aria-labelledby="faq-title">
+    <div class="wrap">
+      <h2 id="faq-title">Questions</h2>
+      <details>
+        <summary>Will it fit my Kallax?</summary>
+        <p>The doors are designed around the standard Kallax cube, which is the same size in every Kallax unit, from the 1×4 to the 5×5.</p>
+      </details>
+      <details>
+        <summary>When can I buy one?</summary>
+        <p>We're still finalising the design. Join the waitlist and you'll be first to hear when the first batch is ready to order.</p>
+      </details>
+      <details>
+        <summary>How much will they cost?</summary>
+        <p>We haven't set a price yet. Everyone on the waitlist will hear it first.</p>
+      </details>
+      <details>
+        <summary>Do you ship outside the UK?</summary>
+        <p>We're starting in the UK. Tell us your country on the form so we know where to plan for next.</p>
+      </details>
+      <details>
+        <summary>Are you part of IKEA?</summary>
+        <p>No. Umbrella Days is an independent brand making accessories for IKEA furniture.</p>
+      </details>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <strong>Umbrella Days</strong>
+      <a href="https://www.instagram.com/umbrella.days/" rel="noopener">Instagram @umbrella.days</a>
+    </div>
+    <p>Your details are stored with our database provider in London and used only to tell you about Umbrella Days. To be removed from the list, email <a href="mailto:hello@umbrelladays.com">hello@umbrelladays.com</a>.</p>
+    <p>Umbrella Days is not affiliated with or endorsed by IKEA. IKEA and KALLAX are trademarks of Inter IKEA Systems B.V.</p>
+  </div>
+</footer>
+
+<script>
+  // Supabase connection. The publishable key is safe in the browser:
+  // the database only lets visitors add a row, never read the list.
+  const SUPABASE_URL = "https://adfhjzvojlhftomttiwm.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_XMPh9mFzAHGBZTZZUKZKTw_MkfEDpqu";
+
+  // Door animation: one door swings open on load; clicking any door toggles it.
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.querySelectorAll(".door").forEach((door) => {
+    door.addEventListener("click", () => door.classList.toggle("open"));
+  });
+  const autoDoor = document.querySelector("[data-auto-open]");
+  if (autoDoor) {
+    if (reduceMotion) autoDoor.classList.add("open");
+    else setTimeout(() => autoDoor.classList.add("open"), 700);
+  }
+
+  // Waitlist form
+  const form = document.getElementById("waitlist-form");
+  const emailInput = document.getElementById("email");
+  const msg = document.getElementById("form-msg");
+  const btn = document.getElementById("submit-btn");
+  const success = document.getElementById("success");
+  const params = new URLSearchParams(location.search);
+  const clip = (v, n) => (v ? String(v).slice(0, n) : null);
+
+  function showSuccess() {
+    form.hidden = true;
+    success.classList.add("show");
+    success.focus();
+  }
+  function showError(text) {
+    msg.textContent = text;
+    msg.className = "msg error";
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    msg.textContent = "";
+    msg.className = "msg";
+    emailInput.removeAttribute("aria-invalid");
+
+    // Bots fill the hidden field; quietly accept and discard.
+    if (form.website.value) { showSuccess(); return; }
+
+    const email = emailInput.value.trim();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+      emailInput.setAttribute("aria-invalid", "true");
+      emailInput.focus();
+      showError("Enter an email address like you@example.com.");
+      return;
+    }
+
+    const data = new FormData(form);
+    const row = {
+      email,
+      doors: data.get("doors") || null,
+      colour: data.get("colour") || null,
+      country: data.get("country") || null,
+      utm_source: clip(params.get("utm_source"), 100),
+      utm_medium: clip(params.get("utm_medium"), 100),
+      utm_campaign: clip(params.get("utm_campaign"), 100),
+      referrer: clip(document.referrer, 500),
+    };
+
+    btn.disabled = true;
+    btn.textContent = "Joining…";
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
+        method: "POST",
+        headers: {
+          apikey: SUPABASE_KEY,
+          "Content-Type": "application/json",
+          Prefer: "return=minimal",
+        },
+        body: JSON.stringify(row),
+      });
+      if (res.ok) { showSuccess(); return; }
+      const body = await res.json().catch(() => ({}));
+      if (res.status === 409 || body.code === "23505") {
+        showError("That email is already on the list. We'll be in touch.");
+      } else {
+        showError("Your details didn't send. Check your connection and try again.");
+      }
+    } catch (err) {
+      showError("Your details didn't send. Check your connection and try again.");
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Join the waitlist";
+    }
+  });
+</script>
+</body>
+</html>
