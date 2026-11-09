@@ -100,3 +100,24 @@ main { background: radial-gradient(ellipse 50% 40% at 85% 10%, rgba(228,167,42,.
 .cta-band h2 { color: #FBF3E4; }
 .cta-band p { color: #D8C9AF; }
 .cta-band .btn { box-shadow: 3px 3px 0 var(--yellow-deep); }
+
+/* ---------- Fitting guide ---------- */
+.page-wide { max-width: 960px; }
+.guide-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 2.2em 0 0; }
+.kit { background: var(--cream); border: 2px solid var(--rain-deep); border-radius: 10px; padding: 20px 24px; }
+.kit h2 { margin: 0 0 .5em; font-size: 1.2rem; }
+.kit ul { margin: 0; }
+.guide { list-style: none; padding: 0; margin: 3.5em 0 0; counter-reset: s; display: grid; gap: clamp(40px, 6vw, 64px); }
+.guide li { counter-increment: s; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(20px, 4vw, 48px); align-items: center; margin: 0; }
+.guide figure { margin: 0; background: var(--cream); border: 2px solid var(--ink); border-radius: 10px; padding: clamp(12px, 2vw, 20px); box-shadow: 4px 4px 0 var(--ink); }
+.guide svg { display: block; width: 100%; height: auto; }
+.guide h2 { margin: 0 0 .35em; font-size: clamp(1.5rem, 2.6vw, 1.9rem); }
+.guide h2::before {
+  content: counter(s); display: block; margin-bottom: .15em;
+  font-family: "Fraunces", Georgia, serif; font-variation-settings: "SOFT" 100, "WONK" 1;
+  font-style: italic; font-weight: 700; font-size: 2.6rem; line-height: 1; color: var(--brick);
+}
+.guide p { color: var(--ink-soft); max-width: 36ch; margin: 0; }
+@media (max-width: 760px) {
+  .guide li, .guide-meta { grid-template-columns: 1fr; }
+}
