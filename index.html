@@ -12,19 +12,23 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M3 16a13 13 0 0 1 26 0z' fill='%23F2C230'/%3E%3Cpath d='M16 16v9a3 3 0 0 1-6 0' fill='none' stroke='%231F2A36' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..900,0..100,0..1;1,9..144,400..900,0..100,0..1&display=swap" rel="stylesheet">
 <style>
   :root {
-    --rain: #DCE3E8;
-    --rain-deep: #C9D3DB;
-    --ink: #1F2A36;
-    --ink-soft: #4A5866;
+    /* Cosy retro palette: aged paper, warm brown-black ink, mustard, deep teal, brick */
+    --rain: #EFE3CB;
+    --rain-deep: #D9C6A3;
+    --ink: #2E2420;
+    --ink-soft: #66554A;
+    --cream: #F8EFDD;
+    --night: #2E2420;
+    --brick: #A9442E;
     --kallax: #F7F7F4;
     --kallax-edge: #E2E2DC;
     --cube-inside: #D9DBD6;
-    --yellow: #F2C230;
-    --yellow-deep: #DDAE1C;
-    --teal: #2F6F73;
+    --yellow: #E4A72A;
+    --yellow-deep: #B07D16;
+    --teal: #2F5F5C;
     --pink: #E48AA6;
     --vinyl: #262626;
     --error: #A3261B;
@@ -244,6 +248,68 @@
     html { scroll-behavior: auto; }
     .door, .btn, .chip span, summary::after { transition: none; }
   }
+
+  /* ---------- Cosy retro theme ---------- */
+  /* Paper grain over everything */
+  body::after {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .18 0 0 0 0 .13 0 0 0 0 .09 0 0 0 .6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    opacity: .2; mix-blend-mode: multiply;
+  }
+  /* Soft serif with 70s curves for headings */
+  h1, h2, h3, .brand, .why dt, summary, .steps li::before, .waitlist .intro .offer, .success h3, .sticker {
+    font-family: "Fraunces", Georgia, serif;
+    font-variation-settings: "SOFT" 100, "WONK" 1;
+  }
+  h1 { font-weight: 700; letter-spacing: -0.02em; line-height: 1; }
+  h2 { font-weight: 700; letter-spacing: -0.015em; }
+  h3, .why dt, summary { font-weight: 650; letter-spacing: 0; }
+  .brand { font-style: italic; font-weight: 700; font-size: 1.3rem; letter-spacing: -0.01em; }
+  .steps li::before { font-weight: 700; font-style: italic; color: var(--brick); }
+
+  /* Warm lamp glow behind the hero */
+  .hero { background: radial-gradient(ellipse 55% 75% at 82% 35%, rgba(228,167,42,.24), transparent 70%); }
+
+  /* Chunky record-shop buttons */
+  .btn {
+    border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
+  }
+  .btn:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); }
+  .btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+
+  /* Sale sticker slapped on the shelf */
+  .hero-visual { position: relative; }
+  .sticker {
+    position: absolute; top: -34px; right: -18px; z-index: 3;
+    width: 106px; height: 106px; border-radius: 50%;
+    display: grid; place-items: center; text-align: center;
+    background: var(--brick); color: #FBF3E4;
+    font-weight: 800; font-size: 2rem; line-height: .9;
+    transform: rotate(12deg);
+    box-shadow: 0 8px 16px -8px rgba(46,36,32,.55);
+  }
+  .sticker::before { content: ""; position: absolute; inset: 6px; border-radius: 50%; border: 1.5px dashed rgba(251,243,228,.65); }
+  .sticker small { display: block; margin-top: 5px; font-family: "Bricolage Grotesque", system-ui, sans-serif; font-size: .64rem; font-weight: 700; letter-spacing: .01em; line-height: 1.1; }
+  @media (max-width: 860px) { .sticker { top: -30px; right: -4px; width: 88px; height: 88px; font-size: 1.65rem; } }
+
+  /* Sections */
+  .steps { background: var(--cream); border-block: 2px solid var(--rain-deep); }
+  .waitlist {
+    background: radial-gradient(ellipse 50% 60% at 12% 18%, rgba(228,167,42,.2), transparent 70%), var(--night);
+    color: var(--cream);
+  }
+  .waitlist h2 { color: #FBF3E4; }
+  .waitlist .intro p, .success p { color: #D8C9AF; }
+  .optional, .consent { color: #B3A288; }
+  .consent a { color: #D8C9AF; }
+  .chip span { border-color: #6B5A4D; }
+  input[type=email], select { background-color: var(--cream); }
+  .waitlist .btn { border-color: var(--ink); box-shadow: 3px 3px 0 var(--yellow-deep); }
+  .waitlist .btn:hover { box-shadow: 4px 4px 0 var(--yellow-deep); }
+  .waitlist .btn:active { box-shadow: 1px 1px 0 var(--yellow-deep); }
+  .waitlist .intro .offer { font-weight: 800; background: var(--brick); color: #FBF3E4; }
+  .kallax { box-shadow: 0 1px 0 var(--frame-edge) inset, 0 30px 50px -28px rgba(46,36,32,.55), 0 0 0 1px var(--frame-edge); }
+  footer { border-top: 2px solid var(--rain-deep); }
 </style>
 </head>
 <body>
@@ -272,6 +338,7 @@
         <p class="hero-note">Waitlist members get 15% off at launch.</p>
       </div>
       <div class="hero-visual">
+      <div class="sticker" aria-hidden="true"><span>15%<small>off at launch</small></span></div>
       <div class="kallax" role="img" aria-label="Illustration of an eight-cube Kallax unit with doors on four of the cubes, each door displaying a record sleeve. The other four cubes are open, with records stored on their edges.">
         <!-- Top row -->
         <div class="cube"><div class="spines" style="--shift:0%"></div><button class="door" type="button" tabindex="-1" aria-hidden="true"><span class="sleeve">
